@@ -22,13 +22,10 @@ const tokenPersistConfig = {
     storage: sensitiveStorage
 };
 
-const rootReducer = combineReducers({
-    product: productListReducer.reducer,
-    // token: persistReducer(tokenPersistConfig, tokenReducer)
-});
-
 export const store = configureStore({
-    reducer: rootReducer
+    reducer: {
+        product: productListReducer.reducer,
+    }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

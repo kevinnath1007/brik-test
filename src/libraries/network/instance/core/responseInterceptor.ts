@@ -14,7 +14,6 @@ export interface CoreApiResponseConfig extends AxiosRequestConfig {
 
 export interface CoreClientResponse<R> {
     ok: CoreApiResponseOk;
-    httpCode: CoreApiResponseHttpStatusCode;
     code: CoreApiResponseCode;
     data: CoreApiResponseData<R>;
     message: CoreApiResponseMessage;
@@ -23,21 +22,18 @@ export interface CoreClientResponse<R> {
 
 function getCoreApiResponseOk(
     httpCode: CoreApiResponseHttpStatusCode,
-    code: CoreApiResponseCode
 ): CoreApiResponseOk {
     return (
         httpCode >= 200 &&
-        httpCode < 300 &&
-        ((code >= '200000' && code < '300000') || code === 'STATUS_OK' || code === 'STATUS_CREATED')
+        httpCode < 300
     );
 }
 
 function getCoreApiResponseData<R>(
     httpCode: CoreApiResponseHttpStatusCode,
-    code: CoreApiResponseCode,
     data: CoreApiResponseData<R>
 ): CoreApiResponseData<R> | null {
-    return getCoreApiResponseOk(httpCode, code) && data !== undefined ? data : null;
+    return getCoreApiResponseOk(httpCode) && data !== undefined ? data : null;
 }
 
 function getCoreApiMessage(message: CoreApiResponseMessage): CoreApiResponseMessage {
@@ -47,15 +43,13 @@ function getCoreApiMessage(message: CoreApiResponseMessage): CoreApiResponseMess
 export default function responseInterceptor<R>(
     response: ClientResponse<CoreClientResponse<R>>
 ): CoreClientResponse<R> {
-    const {data: responseData, status: httpCode} = response;
-    const {data, code, message} = responseData;
+    const {data: responseData, status: httpCode, statusText} = response;
 
     return {
-        code,
-        httpCode,
-        ok: getCoreApiResponseOk(httpCode, code),
-        data: getCoreApiResponseData(httpCode, code, data),
-        message: getCoreApiMessage(message),
+        code: httpCode.toString(),
+        ok: getCoreApiResponseOk(httpCode),
+        data: getCoreApiResponseData(httpCode, responseData as CoreApiResponseData<R>),
+        message: getCoreApiMessage(statusText),
         config: response.config as CoreApiResponseConfig
     };
 }

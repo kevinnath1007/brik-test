@@ -17,7 +17,7 @@ export default function errorRequestInterceptor(
     const {message, response} = params;
 
     if (__DEV__) {
-        console.error(message, response?.data.error);
+        console.error('requer error : ', message, response?.data.error);
     }
 
     return {

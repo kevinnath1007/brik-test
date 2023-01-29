@@ -4,4 +4,4 @@ export const API_CORE = Config.API_CORE;
 
 //ENDPOINT
 /** endpoints **/
-export const PRODUCT_LIST_ENDPOINT = '/products';
+export const PRODUCT_LIST_ENDPOINT = '/v1/products';
