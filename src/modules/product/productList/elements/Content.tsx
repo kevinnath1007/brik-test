@@ -12,7 +12,7 @@ const Content = () => {
     const {productList, hasNextPage, status, page, searchList} = useSelector((state:RootState) => state.product);
     const [refreshing, setRefreshing] = React.useState(false);
     const previousPage = React.useRef(0);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();6
 
     React.useEffect(() => {
         if (page === 1) {
@@ -27,7 +27,7 @@ const Content = () => {
         }
     }, [status, productList]);
 
-    const renderItem = ({item}: {item: ProductType}) => <ProductItem item={item} />;
+    const renderItem = React.useCallback(({item}: {item: ProductType}) => <ProductItem item={item} />, []);
 
     const keyExtractor = (item: ProductType, index: number) => `${item.id}${index}`;
 

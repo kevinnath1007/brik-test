@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {Platform, StyleSheet, Text, TextInput, View} from "react-native";
 import React from "react";
 
 interface ISectionField {
@@ -13,7 +13,7 @@ const SectionField: React.FC<ISectionField> = ({value, label, textArea = false }
             <Text style={styles.label}>
                 {label}
             </Text>
-            <TextInput value={value} editable={false} multiline={textArea} style={styles.textInput} />
+            <TextInput placeholderTextColor="#979797" value={value} editable={false} multiline={textArea} style={styles.textInput} />
         </View>
     );
 }
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         fontSize: 25,
-        marginVertical: 8
+        marginVertical: 8,
+        minHeight: Platform.OS === 'ios' ? 50 : 0
     },
 })
 

@@ -1,4 +1,4 @@
-import {Keyboard, StyleSheet, Text, TextInput, View} from "react-native";
+import {Keyboard, Platform, StyleSheet, Text, TextInput, View} from "react-native";
 import React from "react";
 import {useDispatch} from "react-redux";
 import {setProductAdd} from "../../model/productReducer";
@@ -55,7 +55,7 @@ const SectionField: React.FC<ISectionField> = ({type, label, textArea = false })
             <Text style={styles.label}>
                 {label}
             </Text>
-            <TextInput keyboardType={keyboardType()} placeholder={type} value={value} onBlur={onSubmitEditing} onChangeText={setValue} onSubmitEditing={onSubmitEditing} multiline={textArea} style={styles.textInput} />
+            <TextInput placeholderTextColor="#979797" keyboardType={keyboardType()} placeholder={type} value={value} onBlur={onSubmitEditing} onChangeText={setValue} onSubmitEditing={onSubmitEditing} multiline={textArea} style={styles.textInput} />
         </View>
     );
 }
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         fontSize: 25,
-        marginVertical: 8
+        marginVertical: 8,
+        minHeight: Platform.OS === 'ios' ? 50 : 0
     },
 })
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useDispatch} from "react-redux";
 import {Container, Image} from '../../../../components';
 import {debounce} from '../../../../utils/function';
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
                 toko Klontong
             </Text>
             <View style={styles.textInputContainer}>
-                <TextInput placeholder="Search by name" value={text} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} style={styles.textInput} />
+                <TextInput placeholder="Search by name" placeholderTextColor="#979797" value={text} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} style={styles.textInput} />
                 <TouchableOpacity onPress={clear}>
                     <Image source={text !== '' ? require('../../../../../assets/icons/clear.png') : require('../../../../../assets/icons/search.png')} style={styles.searchIcon} />
                 </TouchableOpacity>
@@ -68,7 +68,8 @@ const styles =  StyleSheet.create({
         alignItems: 'center'
     },
     textInput: {
-        flex: 1
+        flex: 1,
+        minHeight: Platform.OS === 'ios' ? 50 : 0
     },
     searchIcon: {
         width: 15,

@@ -12,14 +12,28 @@ const EmptyComponent = () => {
     React.useEffect(() => {
         if (status === 'loading' && productList.length === 0) {
             setLoading(true);
+        } else {
+            setLoading(false);
         }
     }, [status, productList]);
 
-    return (
-        <View style={styles.container}>
-            {loading ? <ActivityIndicator size="large" /> : <Text>NO DATA</Text>}
-        </View>
-    )
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" />
+            </View>
+        )
+    }
+    if (productList.length === 0) {
+        return (
+            <View style={styles.container}>
+                {loading ? <ActivityIndicator size="large" /> : <Text>NO DATA</Text>}
+            </View>
+        )
+    }
+
+    return null;
+
 }
 
 const styles = StyleSheet.create({
