@@ -6,6 +6,7 @@ import {fetchProductList} from "../../dataSource/productListData";
 import {ProductType} from "../../model/productType";
 import ProductItem from "./ProductItem";
 import Header from "./Header";
+import EmptyComponent from "./EmptyComponent";
 
 const Content = () => {
     const {productList, hasNextPage, status, page, searchList} = useSelector((state:RootState) => state.product);
@@ -16,11 +17,12 @@ const Content = () => {
     React.useEffect(() => {
         if (page === 1) {
             dispatch(fetchProductList({page}));
+            setRefreshing(true);
         }
     }, []);
 
     React.useEffect(() => {
-        if (status !== 'loading' && previousPage.current !== page) {
+        if (status !== 'loading' && (previousPage.current !== page || page === 1)) {
             setRefreshing(false);
         }
     }, [status, productList]);
@@ -44,6 +46,7 @@ const Content = () => {
         <>
             <FlatList
                 ListHeaderComponent={Header}
+                ListFooterComponent={EmptyComponent}
                 stickyHeaderIndices={[0]}
                 keyExtractor={keyExtractor}
                 stickyHeaderHiddenOnScroll={true}

@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import Core from "../../../libraries/network/instance/core/core";
 import {API_CORE, PRODUCT_LIST_ENDPOINT} from "../../../libraries/env/config";
 import {ResponseCoreAPI} from "../../../utils/globalType";
-import {ProductListType} from "../model/productType";
+import {ProductListType, ProductType} from "../model/productType";
 
 export const fetchProductList = createAsyncThunk(
     'get/ProductList',
@@ -50,3 +50,33 @@ export const fetchProductList = createAsyncThunk(
     }
 )
 
+export const addProductList = createAsyncThunk(
+    'posts/ProductList',
+    async ({item, callback}: {item: Omit<ProductType, '_id' | 'CategoryId' | 'id'>, callback: () => void}): Promise<{
+        postSuccess: boolean;
+        data: ProductType | null;
+    }> => {
+        try {
+            //Image hardcoded this moment because Bucket or storage API haven't set up yet
+            const response = await Core.post<{}, ResponseCoreAPI<ProductType , null>>(
+                PRODUCT_LIST_ENDPOINT,
+                {
+                    ...item,
+                });
+
+            if (response.ok) {
+                if (callback) callback();
+                return {
+                    postSuccess: true,
+                    data: response.data || null
+                }
+            }
+            return {
+                postSuccess: false,
+                data: null
+            }
+        } catch (e) {
+            throw Error('Network Error' + e);
+        }
+    }
+)

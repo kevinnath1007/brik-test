@@ -26,7 +26,7 @@ const Header: React.FC = () => {
                 toko Klontong
             </Text>
             <View style={styles.textInputContainer}>
-                <TextInput placeholder="search" value={text} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} style={styles.textInput} />
+                <TextInput placeholder="Search by name" value={text} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} style={styles.textInput} />
                 <TouchableOpacity onPress={clear}>
                     <Image source={text !== '' ? require('../../../../../assets/icons/clear.png') : require('../../../../../assets/icons/search.png')} style={styles.searchIcon} />
                 </TouchableOpacity>

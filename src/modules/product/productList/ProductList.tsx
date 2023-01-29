@@ -15,6 +15,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Container} from '../../../components';
 import Content from "./elements/Content";
+import AddButton from "./elements/addButton";
 
 function ProductList(): JSX.Element {
     const insets = useSafeAreaInsets();
@@ -33,6 +34,7 @@ function ProductList(): JSX.Element {
                 backgroundColor={backgroundStyle.backgroundColor}
             />
             <Content />
+            <AddButton />
         </Container>
     );
 }

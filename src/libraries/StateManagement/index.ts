@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistReducer } from "redux-persist";
 // @ts-ignore
 import createSensitiveStorage from "redux-persist-sensitive-storage";
-import {productListReducer} from "../../modules/product/model/productReducer";
+import {productAddReducer, productListReducer} from "../../modules/product/model/productReducer";
 
 const sensitiveStorage = createSensitiveStorage({
     keychainService: "myKeychain",
@@ -25,6 +25,7 @@ const tokenPersistConfig = {
 export const store = configureStore({
     reducer: {
         product: productListReducer.reducer,
+        productAdd: productAddReducer.reducer
     }
 })
 
