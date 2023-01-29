@@ -13,7 +13,6 @@ export const fetchProductList = createAsyncThunk(
         message: string | null;
     }> => {
         try {
-            console.log(PRODUCT_LIST_ENDPOINT, API_CORE);
             const response = await Core.get<{}, ResponseCoreAPI<ProductListType, null>>(PRODUCT_LIST_ENDPOINT, {
                 params: {
                     page,

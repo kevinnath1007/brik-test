@@ -8,7 +8,7 @@ import responseInterceptor from './responseInterceptor';
 import errorInterceptor from './errorInterceptor';
 
 const options = {
-    baseURL: 'https://63d502ec0e7ae91a00a646d9.mockapi.io/api',
+    baseURL: API_CORE,
     timeout: 30000,
     validateStatus: null
 };
